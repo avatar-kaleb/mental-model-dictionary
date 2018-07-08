@@ -1,0 +1,126 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/simple-material-table/simple-material-table.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-about-the-project">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+
+    <div class="card">
+        <h1>About the Project</h1>
+        <!-- Need avatar and name here!-->
+          <p>Hello there and welcome! <br /><br />  I'm Kaleb, a young professional who has accepted my dual life between social millenial and nerdy software engineer. 
+          I love playing sports, watching Marvel shows on Netflix, reading Fantasy novels in my spare time, meeting new people on random adventures, and learning new ways to grow throughout my
+          journey to achievement. 
+        </p>
+        <p>I hope you enjoy learning about mental models and as they turn you into a rational thinking machine!
+        Interested in learning more about my journey?&nbsp<a href="https://kalebmckelvey.xyz">Check out my personal blog!</a>
+        </p>
+        <p>In my first POC with Polymer 2 I was able to get this site up and running quickly. I reused code from examples and utilized
+          components for a quick "do something" type of start. Can't wait to dive more into ES6 and Polymer 2/3 as the WIP masterpiece continues!
+          
+    </div>  
+
+    <div class="card">
+        <h1>Why Create a Mental Model Dictionary?</h1>
+        <h3>My Passion</h3>
+        <p>
+          Many mental models have been written and discovered by people worldwide, who like me are interested in becoming the best
+          thinker they can. Currently, I find mental models in blog posts, videos, or other mediums that 
+          each describe their version and understanding of the concepts - many with repeated content. I created a notebook in OneNote
+          to better organize, but <strong>decided it was time to let others use those notes</strong> and modernize the approach.
+        </p>
+        <h3>PWA & Polymer 2 Investigation</h3>
+        <p>
+          At work I consistently work with the Polymer Components from the Predix Design System team
+          to develop consistent UI design for our users. Currently these are built in Polymer 1,
+          eventually being transitioned to Polymer 2/3. In order to prepare for the change,
+          I decided to use Polymer 2 and develop the dictionary as a PWA to learn it now for the future.
+        </p>
+    </div>   
+    
+    <div class="card">
+      <h1>Roadmap</h1>
+      <p>I hope to gain feedback and request from users on the future of the project. Although this is my passion,
+        and also a side project for an idea that would be helpful in my own life - I look forward to making 
+        it useful for all!!
+        </p>
+        <p>Below are release updates. I will be creating a feedback form for the site soon, in the meantime please email me at <a href="mailto:kalebmckelvey3@gmail.com?Subject=Mental Model Dictionary Suggestion" target="_top">kalebmckelvey3@gmail.com</a> for suggestions.
+      </p>
+      <simple-material-table 
+        id="featuresTable" 
+        title="Features & Releases" 
+        columns="[[columns]]" 
+        table-data="[[_tableData]]" >
+      </simple-material-table>
+    </div>     
+  </template>
+
+  <script>
+    class MyAboutTheProject extends Polymer.Element {
+      static get is() { return 'my-about-the-project'; }
+
+      constructor() {
+        // TODO change this to read from the database
+        super();
+        this.columns = [
+          {
+            title: "Feature Name",
+            number: false,
+            column: 'feature-name',
+            hidden: false
+          }, {
+            title: "Feature Details",
+            number: false,
+            column: 'feature-details',
+            hidden: false
+          }, {
+            title: "Release Date",
+            number: false,
+            column: 'release-date',
+            hidden: false
+          }
+        ];
+        this._tableData = [   
+          {
+            "feature-name": "Admin & MM Editing",
+            "feature-details": "Added the ability to login to google and use my admin account to edit mental models faster. If you see mental models changing while your reading them, you have Google Firebase to thank for that :).",
+            "release-date": "03/13/18"
+          },                   
+          {
+            "feature-name": "Basic Seach Functionality",
+            "feature-details": "Added basic search functionality to dictionary page, as I've added a few more mental models.",
+            "release-date": "02/23/18"
+          },                    
+          {
+            "feature-name": "MVP 1 Completed",
+            "feature-details": "Developed MVP with Polymer 2 and basic paper elements.",
+            "release-date": "08/30/17"
+          }
+        ];
+
+        this._datetimes = ['2017-08-11T14:17', '2017-08-07T16:00','2017-08-23T15:22', '2017-09-13T14:48'];
+        
+      }      
+    }
+
+    window.customElements.define(MyAboutTheProject.is, MyAboutTheProject);
+  </script>
+</dom-module>

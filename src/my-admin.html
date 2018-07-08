@@ -1,0 +1,143 @@
+<!--Library Components-->
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
+
+<script src="../bower_components/lodash/lodash.js"></script>
+
+<link rel="import" href="./components/my-mental-model-editor.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-admin">
+  <template>
+    <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors"></style>      
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }      
+    </style>
+
+    <firebase-auth
+        id="googleAuth"
+        app-name="mental-model-dictionary"
+        user={{user}}
+        provider-id="google">
+    </firebase-auth>
+
+    <firebase-query
+      id="query"
+      app-name="mental-model-dictionary"
+      path="/mental-models"
+      data="{{_mentalModels}}"
+      log="false"
+      on-data-changed="arrayChanged">
+    </firebase-query>          
+
+    <paper-button raised on-tap="back" hidden$="[[!_mmEditView]]">Back</paper-button>
+    <paper-button raised on-tap="login" hidden$="[[user]]">Sign in</paper-button>
+    <paper-button raised on-tap="logout" hidden$="[[!user]]">Sign out</paper-button>       
+
+    <template is="dom-if" if="{{!_mmEditView}}">
+      <div class="container layout center horizontal wrap mentalModels">
+        <template is="dom-repeat" items="{{_mentalModels}}" as="mentalModel" filter="{{filterMentalModels(searchString)}}">
+          <div class="mentalModelCard layout flex6">
+              <paper-card heading="{{mentalModel.title}}">
+                <div class="card-content">
+                  {{mentalModel.summary}}
+                </div>
+                <div class="card-actions">
+                  <div class="container layout horizontal">
+                      <paper-button on-tap="setSelectedMentalModel">Edit</paper-button>
+                  </div>
+                </div>
+              </paper-card>
+          </div>
+        </template>
+      </div>    
+    </template>
+    
+    <template is="dom-if" if="{{_mmEditView}}" restamp>
+        <div>
+          <my-mental-model-editor
+            mental-model="[[_selectedMentalModel]]"
+            mental-model-key="[[_selectedMentalModel.$key]]"
+            user="[[user]]">
+          </my-mental-model-editor>
+        </div>
+      </template>        
+  </template>
+
+  <script>
+    class MyAdmin extends Polymer.Element {
+      static get is() { return 'my-admin'; }
+
+      static get properties() {
+        return {
+          _mmEditView: {
+            type: Object,
+            value: false
+          },
+
+          _mentalModels: {
+            type: Array
+          },
+
+          user: {
+              type: Object
+          },
+          statusKnown: {
+            type: Object
+          },
+
+          _selectedMentalModel: {
+            type: Object,
+            notify: true
+          }
+        }
+      }  
+
+      back(e) {
+        this.set('_mmEditView', false);
+      }
+
+      // Element class can define custom element reactions
+      connectedCallback() {
+        super.connectedCallback();
+      }
+
+      ready() {
+        super.ready();        
+      }
+
+      login() {
+          return this.$.googleAuth.signInWithRedirect('google');
+      }
+
+      logout() {
+          return this.$.googleAuth.signOut();
+      }
+
+      _mmBackButtonTapped(e) {
+        this.set('_mmEditView', false);
+      }
+
+      setSelectedMentalModel(e) {
+        this.set('_mmEditView', true);
+        
+        this.set('_selectedMentalModel', e.model.__data.mentalModel);
+      }        
+
+      updateMentalModel(e) {
+        let mmIdx = _.findIndex(this._mentalModels, function(mm) { return mm.$key === e.detail.mentalModel.$key; });
+        this.splice('_mentalModels', mmIdx, 1, e.detail.mentalModel)
+        this.$.query.saveValue(this._mentalModels);
+      }
+    }
+
+    window.customElements.define(MyAdmin.is, MyAdmin);
+  </script>
+</dom-module>
