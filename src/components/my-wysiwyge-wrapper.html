@@ -1,20 +1,10 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 
 <link rel="import" href="../../bower_components/wysiwyg-e/wysiwyg-e.html">
-<!-- Import one or more of the following tools -->
+<!-- Importing all the tools to use for the editor -->
 <link rel="import" href="../../bower_components/wysiwyg-e/tools/bold.html">
 <link rel="import" href="../../bower_components/wysiwyg-e/tools/italic.html">
 <link rel="import" href="../../bower_components/wysiwyg-e/tools/underline.html">
@@ -41,16 +31,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
 
         padding: 10px;
-      }     
-      
+      }
+
       .mental-model-editor {
-        width: 50vw; 
+        width: 50vw;
         height: 50vh;
         background-color: white;
         padding: 1em;
         border: 1px solid black;
       }
-      
+
     </style>
 
     <wysiwyg-e class="mental-model-editor" id="wysiwygE" value={{value}}>
@@ -73,7 +63,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <wysiwyg-tool-heading h1 h2 h3 h4 h5 h6></wysiwyg-tool-heading>
         <wysiwyg-tool-blockquote></wysiwyg-tool-blockquote>
     </wysiwyg-e>
-          
+
   </template>
 
   <script>
@@ -87,7 +77,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             notify: true
           }
         }
-      }   
+      }
 
       // Element class can define custom element reactions
       connectedCallback() {
@@ -95,7 +85,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       ready() {
-        super.ready();        
+        super.ready();
       }
     }
 

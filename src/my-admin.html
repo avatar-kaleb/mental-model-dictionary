@@ -12,13 +12,13 @@
 
 <dom-module id="my-admin">
   <template>
-    <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors"></style>      
+    <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors"></style>
     <style include="shared-styles">
       :host {
         display: block;
 
         padding: 10px;
-      }      
+      }
     </style>
 
     <firebase-auth
@@ -33,13 +33,12 @@
       app-name="mental-model-dictionary"
       path="/mental-models"
       data="{{_mentalModels}}"
-      log="false"
       on-data-changed="arrayChanged">
-    </firebase-query>          
+    </firebase-query>
 
     <paper-button raised on-tap="back" hidden$="[[!_mmEditView]]">Back</paper-button>
     <paper-button raised on-tap="login" hidden$="[[user]]">Sign in</paper-button>
-    <paper-button raised on-tap="logout" hidden$="[[!user]]">Sign out</paper-button>       
+    <paper-button raised on-tap="logout" hidden$="[[!user]]">Sign out</paper-button>
 
     <template is="dom-if" if="{{!_mmEditView}}">
       <div class="container layout center horizontal wrap mentalModels">
@@ -57,9 +56,9 @@
               </paper-card>
           </div>
         </template>
-      </div>    
+      </div>
     </template>
-    
+
     <template is="dom-if" if="{{_mmEditView}}" restamp>
         <div>
           <my-mental-model-editor
@@ -68,7 +67,7 @@
             user="[[user]]">
           </my-mental-model-editor>
         </div>
-      </template>        
+      </template>
   </template>
 
   <script>
@@ -98,7 +97,7 @@
             notify: true
           }
         }
-      }  
+      }
 
       back(e) {
         this.set('_mmEditView', false);
@@ -110,7 +109,7 @@
       }
 
       ready() {
-        super.ready();        
+        super.ready();
       }
 
       login() {
@@ -127,9 +126,9 @@
 
       setSelectedMentalModel(e) {
         this.set('_mmEditView', true);
-        
+
         this.set('_selectedMentalModel', e.model.__data.mentalModel);
-      }        
+      }
 
       updateMentalModel(e) {
         let mmIdx = _.findIndex(this._mentalModels, function(mm) { return mm.$key === e.detail.mentalModel.$key; });
