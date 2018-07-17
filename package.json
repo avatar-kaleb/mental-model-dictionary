@@ -1,5 +1,5 @@
 {
-  "name": "Mental Model Dictionary",
+  "name": "mental-model-dictionary",
   "license": "BSD-3-Clause",
   "devDependencies": {
     "eslint": "^3.19.0",

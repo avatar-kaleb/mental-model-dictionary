@@ -90,7 +90,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     {{mentalModel.summary}}
                   </div>
                   <div class="card-actions">
-                    <!-- <paper-button>Share</paper-button> -->
                     <div class="container layout horizontal">
                         <paper-button on-tap="setSelectedMentalModel">Learn more!</paper-button>
                     </div>
@@ -100,7 +99,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </template>
       </div>
     </template>
-
 
     <template is="dom-if" if="{{_mentalModelView}}" restamp>
       <div>
@@ -114,8 +112,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       id="query"
       app-name="mental-model-dictionary"
       path="/mental-models"
-      data="{{_mentalModels}}"
-      log="false">
+      data="{{_mentalModels}}">
     </firebase-query>
   </template>
 
@@ -148,7 +145,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready() {
         super.ready();
-
         this.addEventListener('mm-back-btn-tapped', this._mmBackButtonTapped);
       }
 
