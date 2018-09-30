@@ -85,7 +85,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <template is="dom-if" if="{{!_mentalModelView}}">
-      <div id="wrapperDiv">
+      <div id="wrapperDiv" class$="[[_fadeInClass]]">
         <div id="searchDiv">
             <paper-input
               label="Search Dictionary"
@@ -178,7 +178,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _addFadeInClass() {
         setTimeout(() => {
           this._fadeInClass = 'fadeIn';
-        }, 150);
+        }, 300);
       }
 
       _removeFadeInClass() {

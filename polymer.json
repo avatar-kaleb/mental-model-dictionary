@@ -5,14 +5,10 @@
     "src/my-mental-model-dictionary.html",
     "src/my-about-the-project.html",
     "src/my-about-mental-models.html",
-    "src/my-admin.html",      
+    "src/my-admin.html",
     "src/my-view404.html"
   ],
-  "sources": [
-    "src/**/*",
-    "images/**/*",
-    "bower.json"
-  ],
+  "sources": ["src/**/*", "images/**/*", "bower.json"],
   "extraDependencies": [
     "manifest.json",
     "bower_components/webcomponentsjs/*.js",
@@ -24,6 +20,12 @@
   "builds": [
     {
       "preset": "es5-bundled"
+    },
+    {
+      "preset": "es6-bundled"
+    },
+    {
+      "preset": "es6-unbundled"
     }
   ]
 }
