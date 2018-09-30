@@ -1,8 +1,6 @@
 {
   "name": "polymer-starter-kit",
-  "authors": [
-    "The Polymer Authors"
-  ],
+  "authors": ["The Polymer Authors"],
   "license": "https://polymer.github.io/LICENSE.txt",
   "dependencies": {
     "app-layout": "PolymerElements/app-layout#^2.0.0",
@@ -13,7 +11,7 @@
     "iron-pages": "PolymerElements/iron-pages#^2.0.0",
     "iron-selector": "PolymerElements/iron-selector#^2.0.0",
     "paper-icon-button": "^2.1.0",
-    "polymer": "Polymer/polymer#^2.0.0",
+    "polymer": "Polymer/polymer#^2.1.1",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
     "platinum-sw": "^2.0.0",
     "polymerfire": "^2.2.1",
@@ -27,7 +25,7 @@
     "paper-tabs": "PolymerElements/paper-tabs#^2.0.0",
     "paper-styles": "PolymerElements/paper-styles#^2.0.0",
     "autotrack": "^2.4.1",
-    "mental-model": "https://avatarkalebmckelvey@bitbucket.org/avatarkalebmckelvey/mental-model.git#^1.0.2",
+    "mental-model": "git@github.com:avatar-kaleb/mental-model.git#^1.0.2",
     "paper-input": "PolymerElements/paper-input#^2.1.1",
     "wysiwyg-e": "^2.1.1",
     "lodash": "^4.17.5"
