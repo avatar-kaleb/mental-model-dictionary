@@ -24,8 +24,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="my-mental-model-dictionary">
   <template>
-    <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors"></style>      
-    
+    <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors"></style>
+
     <style include="shared-styles">
       :host {
         display: block;
@@ -37,19 +37,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         @apply --paper-font-common-base;
       }
-      
+
       .mentalModels {
         margin-left: 5%;
         margin-right: 4%;
         margin-top: 2%;
       }
-      
+
       .mentalModelCard {
         width: 300px;
         height: 400px;
         padding-left: 1em;
-        padding-right: 1em;        
-      }       
+        padding-right: 1em;
+      }
 
       paper-card {
         --paper-card-header-text: {
@@ -66,41 +66,53 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding-left: 1em;
         padding-right: 1em;
       }
-      
+
       #searchDiv {
         margin-left: 5%;
         margin-right: 4%;
         margin-top: 2%;
       }
+
+      #wrapperDiv {
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+
+      #wrapperDiv.fadeIn {
+        opacity: 1;
+        transition: opacity 1s ease;
+      }
     </style>
-    
+
     <template is="dom-if" if="{{!_mentalModelView}}">
-      <div id="container layout center-justified horizontal searchDiv">
-          <paper-input 
-            label="Search Dictionary"
-            maxlength="50"
-            value="{{searchString::input}}">
-          </paper-input>   
-      </div>
-      <div class="container layout center horizontal wrap mentalModels">
-          <template is="dom-repeat" items="{{_mentalModels}}" as="mentalModel" filter="{{filterMentalModels(searchString)}}">
-            <div class="mentalModelCard layout flex6">
-                <paper-card heading="{{mentalModel.title}}" image="{{mentalModel.img}}" alt="{{mentalModel.imgAlt}}">
-                  <div class="card-content">
-                    {{mentalModel.summary}}
-                  </div>
-                  <div class="card-actions">
-                    <!-- <paper-button>Share</paper-button> -->
-                    <div class="container layout horizontal">
-                        <paper-button on-tap="setSelectedMentalModel">Learn more!</paper-button>
+      <div id="wrapperDiv" class$=[[_fadeInClass]]>
+        <div id ="searchDiv">
+            <paper-input
+              label="Search Dictionary"
+              maxlength="50"
+              value="{{searchString::input}}">
+            </paper-input>
+        </div>
+        <div class="container layout center horizontal wrap mentalModels">
+            <template is="dom-repeat" items="{{_mentalModels}}" as="mentalModel" filter="{{filterMentalModels(searchString)}}">
+              <div class="mentalModelCard layout flex6">
+                  <paper-card heading="{{mentalModel.title}}" image="{{mentalModel.img}}" alt="{{mentalModel.imgAlt}}">
+                    <div class="card-content">
+                      {{mentalModel.summary}}
                     </div>
-                  </div>
-                </paper-card>
+                    <div class="card-actions">
+                      <!-- <paper-button>Share</paper-button> -->
+                      <div class="container layout horizontal">
+                          <paper-button on-tap="setSelectedMentalModel">Learn more!</paper-button>
+                      </div>
+                    </div>
+                  </paper-card>
+              </div>
             </div>
           </template>
       </div>
-    </template>    
-  
+    </template>
+
 
     <template is="dom-if" if="{{_mentalModelView}}" restamp>
       <div>
@@ -109,14 +121,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </mental-model>
       </div>
     </template>
-  
+
     <firebase-query
       id="query"
       app-name="mental-model-dictionary"
       path="/mental-models"
       data="{{_mentalModels}}"
       log="true">
-    </firebase-query>    
+    </firebase-query>
   </template>
 
   <script>
@@ -124,6 +136,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       static get properties() {
         return {
+          _fadeInClass: {
+            type: String,
+            value: ''
+          },
           user: String,
           _mentalModels: {
             type: Array,
@@ -137,25 +153,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             value: 0
           }
         }
-      }  
+      }
 
       static get is() { return 'my-mental-model-dictionary'; }
 
       // Element class can define custom element reactions
       connectedCallback() {
         super.connectedCallback();
+        this._addFadeInClass();
       }
 
       ready() {
-        super.ready();  
+        super.ready();
 
-        // wait for list to be created and set scroll target 
+        // wait for list to be created and set scroll target
         var _this = this;
         window.setTimeout(function() {
           _this.shadowRoot.querySelector('#list').scrollTarget = _this.ownerDocument.documentElement;
-        }, 1000)
+        }, 3000)
 
         this.addEventListener('mm-back-btn-tapped', this._mmBackButtonTapped);
+      }
+
+      _addFadeInClass() {
+        setTimeout(() => {
+          this._fadeInClass = 'fadeIn';
+        }, 150);
+      }
+
+      _removeFadeInClass() {
+        this._fadeInClass = '';
       }
 
       filterMentalModels(string) {
@@ -170,16 +197,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return (title.indexOf(string) != -1)
           };
         }
-      }      
+      }
 
       _mmBackButtonTapped(e) {
         this.set('_mentalModelView', false);
+        this._addFadeInClass();
       }
 
       setSelectedMentalModel(e) {
+        this._removeFadeInClass();
         this.set('_mentalModelView', true);
         this.set('_selectedMentalModel', e.model.__data.mentalModel);
-      }  
+      }
     }
 
     window.customElements.define(MyMentalModelDictionary.is, MyMentalModelDictionary);
