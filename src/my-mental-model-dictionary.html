@@ -85,8 +85,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <template is="dom-if" if="{{!_mentalModelView}}">
-      <div id="wrapperDiv" class$=[[_fadeInClass]]>
-        <div id ="searchDiv">
+      <div id="wrapperDiv">
+        <div id="searchDiv">
             <paper-input
               label="Search Dictionary"
               maxlength="50"
@@ -127,7 +127,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app-name="mental-model-dictionary"
       path="/mental-models"
       data="{{_mentalModels}}"
-      log="true">
+      log="false">
     </firebase-query>
   </template>
 
